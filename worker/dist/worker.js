@@ -1,14 +1,14 @@
 self.props = {
-	title: 'GDIndex',
-	default_root_id: 'root',
+	title: 'Ronnel Cloud Drive',
+	default_root_id: '0AFL_s6Qe4_w9Uk9PVA',
 	client_id: '202264815644.apps.googleusercontent.com',
 	client_secret: 'X4Z3ca8xfWDb1Voo-F9a7ZxJ',
-	refresh_token: '',
+	refresh_token: '1//0gUmEnSK1OpktCgYIARAAGBASNwF-L9Irc-pz6taCJNd0GGBwqKUmCX2iBgD41pcfTSH8MhG5gkHGGI3MB1ExsNm7G_lie-OHOCg',
 	auth: false,
 	user: '',
 	pass: '',
 	upload: false,
-	lite: false
+  lite: true
 };
 (function () {
   'use strict';
@@ -282,10 +282,6 @@ self.props = {
       this.expires = Date.now() + 3500 * 1000; // normally, it should expiers after 3600 seconds
     }
 
-    async listDrive() {
-      await this.initializeClient();
-      return this.client.get('drives').json();
-    }
 
     async download(id, range = '') {
       await this.initializeClient();
@@ -442,7 +438,7 @@ self.props = {
   }
 
   const gd = new GoogleDrive(self.props);
-  const HTML = `<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>${self.props.title}</title><link href="/~_~_gdindex/resources/css/app.css" rel=stylesheet></head><body><script>window.props = { title: '${self.props.title}', default_root_id: '${self.props.default_root_id}', api: location.protocol + '//' + location.host, upload: ${self.props.upload} }<\/script><div id=app></div><script src="/~_~_gdindex/resources/js/app.js"><\/script></body></html>`;
+  const HTML = `<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>${self.props.title}</title><link href="/~_~_gdindex/resources/css/app.css" rel=stylesheet><link rel="icon" href="https://raw.githubusercontent.com/pctechkid/ronnelindex/master/icon.ico"></head><body><script>window.props = { title: '${self.props.title}', default_root_id: '${self.props.default_root_id}', api: location.protocol + '//' + location.host, upload: ${self.props.upload} }<\/script><div id=app></div><script src="/~_~_gdindex/resources/js/app.js"><\/script></body></html>`;
 
   async function onGet(request) {
     let {
@@ -452,7 +448,7 @@ self.props = {
 
     if (path.startsWith('/~_~_gdindex/resources/')) {
       const remain = path.replace('/~_~_gdindex/resources/', '');
-      const r = await fetch(`https://raw.githubusercontent.com/maple3142/GDIndex/master/web/dist/${remain}`);
+      const r = await fetch(`https://raw.githubusercontent.com/pctechkid/GDIndex/master/web/dist/${remain}`);
       return new Response(r.body, {
         headers: {
           'Content-Type': mime.getType(remain) + '; charset=utf-8',
@@ -645,20 +641,117 @@ self.props = {
       for (const f of files) {
         const isf = f.mimeType === 'application/vnd.google-apps.folder';
         const p = encodePathComponent(path + f.name);
-        fileht += `<li><a href="${p + (isf ? '/' : '')}">${f.name}</a></li>`;
+        fileht += `<li><a href="${p + (isf ? '/' : '')}" style="color:black; text-decoration: none;">${f.name}</a></li>`;
       }
 
       const ht = `<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <html>
 <head>
-<title>Index of ${path}</title>
+<title>Ronnel</title>
+<meta name=viewport content="width=device-width,initial-scale=1,user-scalable="no"">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="icon" href="https://raw.githubusercontent.com/pctechkid/ronnelindex/master/icon.ico">
+<style>
+.wrapper {
+    text-align: center;
+}
+
+.button {
+    position: absolute;
+    top: 50%;
+}
+li:nth-child(even){
+background:#F0F0F0;
+}
+li{
+   padding: 3;
+   font-size: 16;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 5;
+  word-wrap:break-word;
+}
+
+i{
+  color: black;
+  padding: 10;
+}
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+#myInput {
+    background-image: url(https://cdn.jsdelivr.net/gh/kulokenci/goindex-drive@2.0/cari.png);
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 100%;
+    padding-right: 500px;
+    font-size: 16px;
+    padding: 12px 20px 12px 45px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+    
+}
+</style>
 </head>
 <body>
-<h1>Index of ${path}</h1>
-<ul>
-<li><a href="${parent}"> Parent Directory</a></li>
+<section align="center" style="padding-top: 15px;">
+<img src="https://raw.githubusercontent.com/pctechkid/ronnelindex/master/ad.png">
+</section>
+
+
+<div class="wrapper" style="padding: 20;">
+
+<a href="http://v1.ronneldrive.workers.dev"><button type="button" class="btn btn-success">Home</button></a>
+<a href="http://a0153246.herokuapp.com/ariang/#!/settings/rpc/set/wss/a0153246.herokuapp.com/443/jsonrpc/c2Vuc2Vp"><button type="button" class="btn btn-primary">Downloader</button></a>
+<a href="#" onclick="myFunction3()"><button type="button" class="btn btn-warning">Search</button></a>
+<a href="${parent}"><button type="button" class="btn btn-danger">Back</button></a>
+</div>
+<div id="myDIV" style="display:none; margin-left: 10px; margin-right: 10px;">
+<input type="text" id="myInput" onkeyup="myFunction2()" placeholder="What are you looking for?" title="Type in a name">
+</div>
+<ul id="myUL" style="font-family: Open Sans;">
 ${fileht}
 </ul>
+<div style="background-color: #3D3D3D; ">
+<hr>
+
+<footer align="right">
+        <small style="color: white; padding-right:12px;">Copyright &copy; <script>document.write(new Date().getFullYear());</script>. All Rights Reserved</small>
+        <small style="color: white; padding-right:12px;"><br>Ronnel C. Omboy</small>
+        <br><br>
+</footer>
+
+</div>
+<script>
+function myFunction2() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+</script>
+<script>
+function myFunction3() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
 </body>
 </html>`;
       return new Response(ht, {
