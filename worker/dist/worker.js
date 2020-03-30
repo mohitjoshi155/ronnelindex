@@ -697,7 +697,7 @@ i{
 </head>
 <body>
 <section align="center" style="padding-top: 15px;">
-<img src="https://raw.githubusercontent.com/pctechkid/ronnelindex/master/ad.png">
+<img src="https://raw.githubusercontent.com/pctechkid/ronnelindex/master/gc.png" style="width:210px; height:65px;">
 </section>
 
 
